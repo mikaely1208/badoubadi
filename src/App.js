@@ -57,11 +57,31 @@ const LogOut = () => {
 
 const Chatroom = () => {
   return (
-    <h3>Chatroom</h3>
+    <>
+    <main class="chatroom">
+        <Message message='My first message' />
+    </main>
+
+    <form>
+      <input type='text' placeholder='Write some...'/>
+      <button type="submit">Send</button>
+    </form>
+    </>
   )
 }
 
-
+function Message (props) {
+  return (
+    <>
+      <div>
+        <img alt='message' src="https://avatars.dicebear.com/4.5/api/human/reyact-chat.svg?w=96&h=96"/>
+          <p> 
+            {props.message}
+         </p>
+      </div>
+    </>
+  )
+}
 
 
 export default App;
