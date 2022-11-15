@@ -9,7 +9,7 @@ body {
 }
 
 .App header {
-  position: fixed; 
+  position: fixed;
   top: 0;
   display: flex;
   z-index: 9;
@@ -25,14 +25,10 @@ body {
   box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.App section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   min-height: 100vh;
   background-color: #2a373d;
 }
