@@ -5,7 +5,8 @@ import './App.css';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, updateCurrentUser } from "firebase/auth";
-import {collection, getFirestore, orderBy, query} from 'firebase/firestore'
+import {addDoc, collection, getFirestore, orderBy, query} from 'firebase/firestore'
+import { useState } from "react";
 
 
 const app = initializeApp(firebaseConfig);
@@ -62,10 +63,21 @@ const Chatroom = () => {
 
  const msgCollection = collection(firestore, 'message') 
  const q = query(msgCollection, orderBy('timestamp'))
-
  const [message] = useCollectionData(q)
+ const [MyMessage, setMyMessage] = useState("")
 
- 
+ const sendMessage = (event) => {
+  event.preventDefault()
+
+  const currentUser = auth.currentUser
+
+  addDoc(msgCollection, {
+    text: MyMessage,
+    timestamp: Date.now(),
+    userID: currentUser.uid,
+    avatar: currentUser.photoURL
+  })
+ }
 
   return (
     <>
@@ -83,11 +95,10 @@ const Chatroom = () => {
 
         
     </main>
-    
-    
-
-    <form>
-      <input type='text' placeholder='Write some...'/>
+  
+    <form onSubmit={sendMessage}>
+      <input type='text' placeholder='Write some...' 
+        value={MyMessage} onChange={e => setMyMessage(e.target.value)}/>
       <button type="submit">Send</button>
     </form>
     </>
